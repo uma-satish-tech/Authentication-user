@@ -59,7 +59,7 @@ app.post("/login", async (request, response) => {
   const dbUser = await db.get(selectUserQuery);
   if (dbUser === undefined) {
     response.status(400);
-    response.send("Invalid user");
+    response.send("Invalid User");
   } else {
     const isPasswordMatched = await bcrypt.compare(password, dbUser.password);
     if (isPasswordMatched === true) {
@@ -73,7 +73,7 @@ app.post("/login", async (request, response) => {
 
 //change password
 
-app.post("/change-password", async (request, response) => {
+app.put("/change-password", async (request, response) => {
   const { username, oldPassword, newPassword } = request.body;
   const hashPassword = await bcrypt.hash(newPassword, 10);
   const selectUserQuery = `SELECT * FROM user WHERE username = '${username}'`;
